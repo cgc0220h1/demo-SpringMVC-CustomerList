@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import java.util.List;
 @RequestMapping("/customers")
 @Controller
 public class CustomerController {
-    private CustomerService customerService = CustomerServiceFactory.getInstance();
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping("/view")
     public ModelAndView showList() {
@@ -34,6 +36,6 @@ public class CustomerController {
     @PostMapping("/{id}")
     public ModelAndView updateCustomer(@ModelAttribute Customer customer) {
         Customer customer1 = customerService.save(customer);
-        return showDetail(customer1.getId());
+        return showList();
     }
 }
