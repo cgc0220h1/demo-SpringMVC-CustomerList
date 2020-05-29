@@ -11,13 +11,13 @@ import service.CustomerServiceFactory;
 
 import java.util.List;
 
-@RequestMapping("/customers")
+@RequestMapping("/")
 @Controller
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/view")
+    @GetMapping()
     public ModelAndView showList() {
         List<Customer> customers = customerService.findAll();
         ModelAndView modelAndView = new ModelAndView("list");
@@ -25,7 +25,7 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/customers/{id}")
     public ModelAndView showDetail(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("info");
         Customer customer = customerService.findOne(id);
@@ -33,9 +33,9 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/customers/{id}")
     public ModelAndView updateCustomer(@ModelAttribute Customer customer) {
-        Customer customer1 = customerService.save(customer);
+        customerService.save(customer);
         return showList();
     }
 }

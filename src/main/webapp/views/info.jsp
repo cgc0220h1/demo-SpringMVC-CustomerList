@@ -3,7 +3,7 @@
 <form:form method="post" modelAttribute="customer">
     <fieldset>
         <legend>Customer Information</legend>
-        <form:input type="hidden" path="id" value="${customer.id}"></form:input>
+        <form:input type="hidden" path="id" value="${customer.id}"/>
         <table>
             <tr>
                 <td>Id</td>
@@ -14,19 +14,19 @@
             <tr>
                 <td>Name</td>
                 <td>
-                    <form:input value="${customer.name}" path="name"></form:input>
+                    <form:input value="${customer.name}" path="name"/>
                 </td>
             </tr>
             <tr>
                 <td>Email</td>
                 <td>
-                    <form:input value="${customer.email}" path="email"></form:input>
+                    <form:input value="${customer.email}" path="email"/>
                 </td>
             </tr>
             <tr>
                 <td>Address</td>
                 <td>
-                    <form:input value="${customer.address}" path="address"></form:input>
+                    <form:input value="${customer.address}" path="address"/>
                 </td>
             </tr>
             <tr>
