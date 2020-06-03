@@ -16,4 +16,9 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.2.3.RELEASE'
     providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     compile group: 'jstl', name: 'jstl', version: '1.2'
+    compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
+    compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.3.0'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.10.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    implementation 'junit:junit:4.12'
 }

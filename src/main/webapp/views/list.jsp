@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-There are ${requestScope.customers.size()} customer(s) in list.
+There are ${customers.size()} customer(s) in list.
 <table style="border: solid black 1px">
-<c:forEach var="c" items="${requestScope.customers}">
+<c:forEach var="c" items="${customers}">
     <tr style="border: solid black 1px">
         <td>
             <c:out value="${c.id}"/>

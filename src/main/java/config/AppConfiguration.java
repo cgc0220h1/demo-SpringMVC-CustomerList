@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import service.CustomerService;
+import service.impl.HibernateCustomerServiceImp;
 import service.impl.SimpleCustomerServiceImpl;
 
 @Configuration
@@ -33,6 +34,6 @@ public class AppConfiguration implements ApplicationContextAware {
 
     @Bean
     public CustomerService customerService() {
-        return new SimpleCustomerServiceImpl();
+        return new HibernateCustomerServiceImp();
     }
 }
