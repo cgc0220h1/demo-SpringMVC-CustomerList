@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết khách hàng</title>
+</head>
+<body>
+<form method="post" th:object="${customer}">
+    <fieldset>
+        <legend>Customer Information</legend>
+        <input type="hidden" th:field="*{id}"/>
+        <table>
+            <tr>
+                <td><label for="customer-name">Tên</label></td>
+                <td>
+                    <input th:field="*{name}" id="customer-name"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="customer-email">Email</label></td>
+                <td>
+                    <input th:field="*{email}" id="customer-email"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="customer-address">Địa chỉ</label></td>
+                <td>
+                    <input th:field="*{address}" id="customer-address"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" th:value="${buttonLabel}">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+<a th:href="@{/}">Quay lại trang trước</a>.
+</body>
+</html>

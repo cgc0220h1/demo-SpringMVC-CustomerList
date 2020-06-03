@@ -1,14 +1,14 @@
 package service;
 
 
-import service.impl.SimpleCustomerServiceImpl;
+import service.customer.SimpleIServiceImpl;
 
 public class CustomerServiceFactory {
-    private static CustomerService singleton;
+    private static IService singleton;
 
-    public static synchronized CustomerService getInstance() {
+    public static synchronized IService getInstance() {
         if (singleton == null) {
-            singleton = new SimpleCustomerServiceImpl();
+            singleton = new SimpleIServiceImpl();
         }
         return singleton;
     }

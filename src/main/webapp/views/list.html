@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách khách hàng</title>
+    <style>
+        table, tr, td {
+            border: black solid 1px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<h1>Danh sách khách hàng</h1>
+<div style="margin-bottom: 10px">
+    <a th:href="@{/create}">Tạo mới</a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Tên</td>
+        <td>Email</td>
+        <td>Địa chỉ</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}"></td>
+        <td>
+            <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name}"></a>
+        </td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.address}"></td>
+    </tr>
+    </tbody>
+</table>
+<p th:text="${'Có: ' + customers.size() + ' khách hàng'}"></p>
+</body>
+</html>

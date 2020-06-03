@@ -10,6 +10,10 @@ repositories {
     mavenCentral()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -21,4 +25,7 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.10.Final'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
     implementation 'junit:junit:4.12'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.10.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '5.2.5.RELEASE'
 }
