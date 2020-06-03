@@ -1,5 +1,6 @@
 package config;
 
+import model.Customer;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,6 +18,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import repository.IRepository;
+import repository.customer.CustomerRepository;
 import service.IService;
 import service.customer.CustomerService;
 
@@ -63,10 +66,7 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
         return viewResolver;
     }
 
-    @Bean
-    public IService customerService() {
-        return new CustomerService();
-    }
+    //ORM - config
 
     @Bean
     public DataSource dataSource() {
@@ -96,8 +96,8 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
 
     private Properties properties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto","update");
-        properties.setProperty("hibernate.dialect","org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         return properties;
     }
 
@@ -106,5 +106,15 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
+    }
+
+    @Bean
+    public IRepository<Customer> customerRepository() {
+        return new CustomerRepository();
+    }
+
+    @Bean
+    public IService<Customer> customerService() {
+        return new CustomerService();
     }
 }
