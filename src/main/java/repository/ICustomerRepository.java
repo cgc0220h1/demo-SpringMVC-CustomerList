@@ -1,4 +1,4 @@
-package repository.customer;
+package repository;
 
 import model.Customer;
 import org.springframework.data.repository.CrudRepository;

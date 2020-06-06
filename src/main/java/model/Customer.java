@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customer")
@@ -19,6 +20,7 @@ public class Customer implements Cloneable {
     private String address;
 
     @ManyToOne
+    @JoinColumn(name = "province_id", referencedColumnName = "id")
     private Province province;
 
     public Customer() {
@@ -88,5 +90,22 @@ public class Customer implements Cloneable {
                 ", address='" + address + '\'' +
                 ", province=" + province +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(getId(), customer.getId()) &&
+                Objects.equals(getName(), customer.getName()) &&
+                Objects.equals(getEmail(), customer.getEmail()) &&
+                Objects.equals(getAddress(), customer.getAddress()) &&
+                Objects.equals(getProvince(), customer.getProvince());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getEmail(), getAddress(), getProvince());
     }
 }

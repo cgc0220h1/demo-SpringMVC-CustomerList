@@ -1,6 +1,8 @@
 package model;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "province")
@@ -11,6 +13,9 @@ public class Province {
 
     @Column
     private String name;
+
+    @OneToMany
+    private Collection<Customer> customers;
 
     public Province() {
     }
@@ -40,11 +45,34 @@ public class Province {
         this.name = name;
     }
 
+    public Collection<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Collection<Customer> customers) {
+        this.customers = customers;
+    }
+
     @Override
     public String toString() {
         return "Province{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Province)) return false;
+        Province province = (Province) o;
+        return Objects.equals(getId(), province.getId()) &&
+                Objects.equals(getName(), province.getName()) &&
+                Objects.equals(getCustomers(), province.getCustomers());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCustomers());
     }
 }

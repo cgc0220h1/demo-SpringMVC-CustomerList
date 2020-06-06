@@ -19,7 +19,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import repository.customer.ICustomerRepository;
+import repository.ICustomerRepository;
 import service.IService;
 import service.customer.CustomerServiceImp;
 
