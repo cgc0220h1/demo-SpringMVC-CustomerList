@@ -78,12 +78,14 @@ public class ProvinceServiceImp implements IProvinceService {
     }
 
     @Override
-    public void deleteAll(List<Province> models) {
-
+    public void deleteAll(List<Province> provinces) {
+        for (Province province : provinces) {
+            provinceRepository.delete(province);
+        }
     }
 
     @Override
     public void deleteAll() {
-
+        provinceRepository.deleteAll();
     }
 }
