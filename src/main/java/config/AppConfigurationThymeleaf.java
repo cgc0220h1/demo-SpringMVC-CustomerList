@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,10 +19,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import repository.IRepository;
-import repository.customer.CustomerRepository;
+import repository.customer.ICustomerRepository;
 import service.IService;
-import service.customer.CustomerService;
+import service.customer.CustomerServiceImp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,6 +32,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("controllers")
+@EnableJpaRepositories("repository")
 public class AppConfigurationThymeleaf implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -84,7 +85,7 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource());
         entityManagerFactory.setPackagesToScan("model");
@@ -109,12 +110,7 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
     }
 
     @Bean
-    public IRepository<Customer> customerRepository() {
-        return new CustomerRepository();
-    }
-
-    @Bean
-    public IService<Customer> customerService() {
-        return new CustomerService();
+    public IService<Customer> customerService(ICustomerRepository customerRepository) {
+        return new CustomerServiceImp(customerRepository);
     }
 }

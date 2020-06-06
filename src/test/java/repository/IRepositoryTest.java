@@ -3,7 +3,6 @@ package repository;
 import model.Customer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import repository.customer.CustomerRepository;
 
 import java.util.ArrayList;
 import java.util.List;

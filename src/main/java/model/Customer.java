@@ -12,23 +12,31 @@ public class Customer implements Cloneable {
     @Column(nullable = false)
     private String name;
 
+    @Column
     private String email;
+
+    @Column
     private String address;
+
+    @ManyToOne
+    private Province province;
 
     public Customer() {
     }
 
-    public Customer(String name, String email, String address) {
-        this.name = name;
-        this.email = email;
-        this.address = address;
-    }
-
-    public Customer(Long id, String name, String email, String address) {
+    public Customer(Long id, String name, String email, String address, Province province) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
+        this.province = province;
+    }
+
+    public Customer(String name, String email, String address, Province province) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.province = province;
     }
 
     public Long getId() {
@@ -63,14 +71,12 @@ public class Customer implements Cloneable {
         this.address = address;
     }
 
-    @Override
-    public Customer clone() {
-        Customer customer = new Customer();
-        customer.setId(id);
-        customer.setName(name);
-        customer.setEmail(email);
-        customer.setAddress(address);
-        return customer;
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
     @Override
@@ -80,6 +86,7 @@ public class Customer implements Cloneable {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
+                ", province=" + province +
                 '}';
     }
 }

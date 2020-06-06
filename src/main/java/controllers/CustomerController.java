@@ -12,12 +12,16 @@ import java.util.List;
 @RequestMapping("/")
 @Controller
 public class CustomerController {
+    private final IService<Customer> customerService;
+
     @Autowired
-    private IService<Customer> iService;
+    public CustomerController(IService<Customer> customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping()
     public ModelAndView showList() {
-        List<Customer> customers = iService.findAll();
+        List<Customer> customers = customerService.findAll();
         ModelAndView modelAndView = new ModelAndView("list");
         modelAndView.addObject("customers", customers);
         return modelAndView;
@@ -26,7 +30,7 @@ public class CustomerController {
     @GetMapping("/customers/{id}")
     public ModelAndView showDetail(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("info");
-        Customer customer = iService.findOne(id);
+        Customer customer = customerService.findById(id);
         modelAndView.addObject("customer", customer);
         modelAndView.addObject("buttonLabel", "Cập nhật");
         return modelAndView;
@@ -34,7 +38,7 @@ public class CustomerController {
 
     @PostMapping("/customers/{id}")
     public ModelAndView updateCustomer(@ModelAttribute Customer customer) {
-        iService.save(customer);
+        customerService.save(customer);
         return showList();
     }
 
@@ -48,7 +52,7 @@ public class CustomerController {
 
     @PostMapping("/create")
     public ModelAndView addCustomer(@ModelAttribute("customer") Customer customer) {
-        iService.save(customer);
+        customerService.save(customer);
         return showList();
     }
 }

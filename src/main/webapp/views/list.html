@@ -31,7 +31,7 @@
             <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name}"></a>
         </td>
         <td th:text="${customer.email}"></td>
-        <td th:text="${customer.address}"></td>
+        <td th:text="${customer.province.name}"></td>
     </tr>
     </tbody>
 </table>

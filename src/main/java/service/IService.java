@@ -1,27 +1,30 @@
 package service;
 
+import model.Customer;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface IService<T> {
+    T save(T entity);
+
+    List<T> saveAll(List<T> entities);
+
+    T findById(Long id);
+
+    boolean existsById(Long id);
+
     List<T> findAll();
 
-    T findOne(Long id);
+    List<T> findAllById(List<Long> ids);
 
-    boolean save(T customer);
+    long count();
 
-    boolean save(List<T> customers);
+    void deleteById(Long id);
 
-    boolean exists(Long id);
+    void delete(T model);
 
-    List<T> findAll(List<Long> ids);
+    void deleteAll(List<T> models);
 
-    int count();
-
-    boolean delete(Long id);
-
-    boolean delete(T customer);
-
-    boolean delete(List<T> customers);
-
-    boolean deleteAll();
+    void deleteAll();
 }
