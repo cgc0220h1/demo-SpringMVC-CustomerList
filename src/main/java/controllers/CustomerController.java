@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Customer;
+import model.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,18 @@ import java.util.List;
 public class CustomerController {
     private final IService<Customer> customerService;
 
+    private final IService<Province> provinceService;
+
     @Autowired
-    public CustomerController(IService<Customer> customerService) {
+    public CustomerController(IService<Customer> customerService,
+                              IService<Province> provinceService) {
         this.customerService = customerService;
+        this.provinceService = provinceService;
+    }
+
+    @ModelAttribute
+    public List<Province> provinceList() {
+        return provinceService.findAll();
     }
 
     @GetMapping()

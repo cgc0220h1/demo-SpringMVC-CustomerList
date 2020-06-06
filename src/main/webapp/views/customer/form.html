@@ -23,9 +23,13 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="customer-address">Địa chỉ</label></td>
+                <td><label for="customer-province">Tỉnh thành</label></td>
                 <td>
-                    <input th:field="*{address}" id="customer-address"/>
+                    <select th:field="*{province}" id="customer-province">
+                        <th:block th:each="province : ${provinceList}">
+                            <option th:value="${province.id}" th:text="${province.name}"></option>
+                        </th:block>
+                    </select>
                 </td>
             </tr>
             <tr>
