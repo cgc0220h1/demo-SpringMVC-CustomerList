@@ -1,6 +1,7 @@
 package config;
 
 import model.Customer;
+import model.Province;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -20,8 +21,10 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import repository.ICustomerRepository;
+import repository.IProvinceRepository;
 import service.IService;
 import service.customer.CustomerServiceImp;
+import service.province.ProvinceServiceImp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -112,5 +115,10 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
     @Bean
     public IService<Customer> customerService(ICustomerRepository customerRepository) {
         return new CustomerServiceImp(customerRepository);
+    }
+
+    @Bean
+    public IService<Province> provinceService(IProvinceRepository provinceRepository) {
+        return new ProvinceServiceImp(provinceRepository);
     }
 }

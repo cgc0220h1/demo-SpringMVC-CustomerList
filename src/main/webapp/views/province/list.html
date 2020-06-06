@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách khách hàng</title>
+    <style>
+        table, tr, td {
+            border: black solid 1px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<h1>Danh sách tỉnh</h1>
+<div style="margin-bottom: 10px">
+    <a th:href="@{/provinces/create}">Tạo mới</a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Tên Tỉnh</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="province : ${provinceList}">
+        <td th:text="${province.id}"></td>
+        <td>
+            <a th:href="@{/provinces/edit/{id}(id=${province.id})}" th:text="${province.name}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p th:text="${'Có: ' + provinceList.size() + ' tỉnh thành'}"></p>
+</body>
+</html>

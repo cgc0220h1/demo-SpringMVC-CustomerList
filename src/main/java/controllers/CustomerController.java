@@ -20,16 +20,16 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public ModelAndView showList() {
+    public ModelAndView showCustomerList() {
         List<Customer> customers = customerService.findAll();
-        ModelAndView modelAndView = new ModelAndView("list");
+        ModelAndView modelAndView = new ModelAndView("customer/list");
         modelAndView.addObject("customers", customers);
         return modelAndView;
     }
 
     @GetMapping("/customers/{id}")
-    public ModelAndView showDetail(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("info");
+    public ModelAndView showCustomerDetail(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("customer/form");
         Customer customer = customerService.findById(id);
         modelAndView.addObject("customer", customer);
         modelAndView.addObject("buttonLabel", "Cập nhật");
@@ -39,12 +39,12 @@ public class CustomerController {
     @PostMapping("/customers/{id}")
     public ModelAndView updateCustomer(@ModelAttribute Customer customer) {
         customerService.save(customer);
-        return showList();
+        return showCustomerList();
     }
 
     @GetMapping("/create")
-    public ModelAndView showCreateForm() {
-        ModelAndView modelAndView = new ModelAndView("info");
+    public ModelAndView showCreateCustomerForm() {
+        ModelAndView modelAndView = new ModelAndView("customer/form");
         modelAndView.addObject("customer", new Customer());
         modelAndView.addObject("buttonLabel", "Tạo mới");
         return modelAndView;
@@ -53,6 +53,6 @@ public class CustomerController {
     @PostMapping("/create")
     public ModelAndView addCustomer(@ModelAttribute("customer") Customer customer) {
         customerService.save(customer);
-        return showList();
+        return showCustomerList();
     }
 }

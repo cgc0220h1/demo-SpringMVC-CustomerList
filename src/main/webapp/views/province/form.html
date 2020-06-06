@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết Tỉnh thành</title>
+</head>
+<body>
+<form method="post" th:object="${province}">
+    <fieldset>
+        <legend>Customer Information</legend>
+        <input type="hidden" th:field="*{id}"/>
+        <table>
+            <tr>
+                <td><label for="province-name">Tỉnh</label></td>
+                <td>
+                    <input th:field="*{name}" id="province-name"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" th:value="${buttonLabel}">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+<a th:href="@{/provinces}">Quay lại trang trước</a>.
+</body>
+</html>
