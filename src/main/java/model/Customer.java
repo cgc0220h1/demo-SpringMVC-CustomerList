@@ -26,21 +26,6 @@ public class Customer implements Cloneable {
     public Customer() {
     }
 
-    public Customer(Long id, String name, String email, String address, Province province) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.province = province;
-    }
-
-    public Customer(String name, String email, String address, Province province) {
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.province = province;
-    }
-
     public Long getId() {
         return id;
     }

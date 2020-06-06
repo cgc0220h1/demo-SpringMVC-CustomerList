@@ -1,5 +1,6 @@
 package config;
 
+import formatter.ProvinceFormatter;
 import model.Customer;
 import model.Province;
 import org.springframework.beans.BeansException;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,6 +18,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -36,7 +39,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("controllers")
 @EnableJpaRepositories("repository")
-public class AppConfigurationThymeleaf implements ApplicationContextAware {
+public class AppConfigurationThymeleaf implements ApplicationContextAware, WebMvcConfigurer {
     private ApplicationContext applicationContext;
 
     @Override
@@ -110,6 +113,14 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
+    }
+
+    //Formatter
+
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new ProvinceFormatter(applicationContext.getBean(ProvinceServiceImp.class)));
     }
 
     @Bean
