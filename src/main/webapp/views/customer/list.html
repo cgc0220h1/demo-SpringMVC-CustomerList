@@ -18,6 +18,11 @@
 <div style="margin-bottom: 10px">
     <a th:href="@{/provinces}">Danh sách tỉnh</a>
 </div>
+<form method="GET" action="/search">
+    <label for="search">Tìm theo tên</label>
+    <input type="text" name="search" id="search">
+    <input type="submit" value="Tìm kiếm">
+</form>
 <table>
     <thead>
     <tr>
@@ -38,6 +43,11 @@
     </tr>
     </tbody>
 </table>
-<p th:text="${'Có: ' + customers.size() + ' khách hàng'}"></p>
+<div>
+    <a th:href="@{/customers(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}">Trước</a>
+    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+    <a th:href="@{/customers(page=${customers.number + 1})}" th:if="${customers.hasNext()}">Sau</a>
+</div>
+<p th:text="${'Có: ' + customers.content.size() + ' khách hàng'}"></p>
 </body>
 </html>

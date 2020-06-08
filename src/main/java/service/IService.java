@@ -1,9 +1,8 @@
 package service;
 
-import model.Customer;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
-import java.util.Optional;
 
 public interface IService<T> {
     T save(T entity);
@@ -15,6 +14,8 @@ public interface IService<T> {
     boolean existsById(Long id);
 
     List<T> findAll();
+
+    Page<T> findAll(Pageable pageable);
 
     List<T> findAllById(List<Long> ids);
 

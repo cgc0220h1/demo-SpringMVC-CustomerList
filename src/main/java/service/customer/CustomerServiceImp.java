@@ -2,14 +2,17 @@ package service.customer;
 
 import model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import repository.ICustomerRepository;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CustomerServiceImp implements ICustomerService {
+public class CustomerServiceImp implements CustomerService {
     private final ICustomerRepository customerRepository;
 
     @Autowired
@@ -29,6 +32,16 @@ public class CustomerServiceImp implements ICustomerService {
             customerSaved.add(customerRepository.save(customer));
         }
         return customerSaved;
+    }
+
+    @Override
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Customer> findByNameContaining(String name, Pageable pageable) {
+        return customerRepository.findAllByNameContaining(name, pageable);
     }
 
     @Override

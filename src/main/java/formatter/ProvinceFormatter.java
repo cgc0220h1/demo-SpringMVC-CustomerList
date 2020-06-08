@@ -4,17 +4,17 @@ import model.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
-import service.province.IProvinceService;
+import service.province.ProvinceService;
 
 import java.text.ParseException;
 import java.util.Locale;
 
 @Component
 public class ProvinceFormatter implements Formatter<Province> {
-    private final IProvinceService provinceService;
+    private final ProvinceService provinceService;
 
     @Autowired
-    public ProvinceFormatter(IProvinceService provinceService) {
+    public ProvinceFormatter(ProvinceService provinceService) {
         this.provinceService = provinceService;
     }
 

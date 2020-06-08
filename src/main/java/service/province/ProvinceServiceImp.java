@@ -2,6 +2,8 @@ package service.province;
 
 import model.Province;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import repository.IProvinceRepository;
 
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProvinceServiceImp implements IProvinceService {
+public class ProvinceServiceImp implements ProvinceService {
     private final IProvinceRepository provinceRepository;
 
     @Autowired
@@ -36,6 +38,11 @@ public class ProvinceServiceImp implements IProvinceService {
     public Province findById(Long id) {
         Optional<Province> provinceOptional = provinceRepository.findById(id);
         return provinceOptional.orElse(null);
+    }
+
+    @Override
+    public Page<Province> findAll(Pageable pageable) {
+        return null;
     }
 
     @Override

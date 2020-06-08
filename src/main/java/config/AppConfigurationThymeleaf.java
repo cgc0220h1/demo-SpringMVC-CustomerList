@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -26,7 +27,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 import repository.ICustomerRepository;
 import repository.IProvinceRepository;
 import service.IService;
+import service.customer.CustomerService;
 import service.customer.CustomerServiceImp;
+import service.province.ProvinceService;
 import service.province.ProvinceServiceImp;
 
 import javax.persistence.EntityManager;
@@ -39,6 +42,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("controllers")
 @EnableJpaRepositories("repository")
+@EnableSpringDataWebSupport
 public class AppConfigurationThymeleaf implements ApplicationContextAware, WebMvcConfigurer {
     private ApplicationContext applicationContext;
 
@@ -124,12 +128,12 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware, WebMv
     }
 
     @Bean
-    public IService<Customer> customerService(ICustomerRepository customerRepository) {
+    public CustomerService customerService(ICustomerRepository customerRepository) {
         return new CustomerServiceImp(customerRepository);
     }
 
     @Bean
-    public IService<Province> provinceService(IProvinceRepository provinceRepository) {
+    public ProvinceService provinceService(IProvinceRepository provinceRepository) {
         return new ProvinceServiceImp(provinceRepository);
     }
 }
