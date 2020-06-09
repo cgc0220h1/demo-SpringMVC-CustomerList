@@ -51,7 +51,12 @@ public class CustomerController {
     @GetMapping("/customers/{id}")
     public ModelAndView showCustomerDetail(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("customer/form");
-        Customer customer = customerService.findById(id);
+        Customer customer = null;
+        try {
+            customer = customerService.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         modelAndView.addObject("customer", customer);
         modelAndView.addObject("buttonLabel", "Cập nhật");
         return modelAndView;

@@ -20,7 +20,12 @@ public class ProvinceFormatter implements Formatter<Province> {
 
     @Override
     public Province parse(String text, Locale locale) throws ParseException {
-        return provinceService.findById(Long.valueOf(text));
+        try {
+            return provinceService.findById(Long.valueOf(text));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

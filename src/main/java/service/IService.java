@@ -9,13 +9,13 @@ public interface IService<T> {
 
     List<T> saveAll(List<T> entities);
 
-    T findById(Long id);
+    T findById(Long id) throws Exception;
 
     boolean existsById(Long id);
 
     List<T> findAll();
 
-    Page<T> findAll(Pageable pageable) throws Exception;
+    Page<T> findAll(Pageable pageable);
 
     List<T> findAllById(List<Long> ids);
 

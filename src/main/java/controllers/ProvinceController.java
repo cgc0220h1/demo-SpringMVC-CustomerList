@@ -44,7 +44,12 @@ public class ProvinceController {
     @GetMapping("/edit/{id}")
     public ModelAndView showProvinceDetail(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("province/form");
-        Province province = provinceService.findById(id);
+        Province province = null;
+        try {
+            province = provinceService.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (province != null) {
             modelAndView.addObject("province", province);
             modelAndView.addObject("buttonLabel", "Cập nhật");
