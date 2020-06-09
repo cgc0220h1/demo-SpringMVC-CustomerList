@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import service.IService;
+import service.exception.DuplicateException;
 
 import java.util.List;
 
@@ -36,32 +38,33 @@ public class ProvinceController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createProvince(@ModelAttribute("province") Province province) {
+    public ModelAndView createProvince(@ModelAttribute("province") Province province) throws DuplicateException {
         provinceService.save(province);
         return showProvinceList();
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView showProvinceDetail(@PathVariable("id") Long id) {
+    public ModelAndView showProvinceDetail(@PathVariable("id") Long id) throws Exception {
         ModelAndView modelAndView = new ModelAndView("province/form");
-        Province province = null;
-        try {
-            province = provinceService.findById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (province != null) {
-            modelAndView.addObject("province", province);
-            modelAndView.addObject("buttonLabel", "Cập nhật");
-        } else {
-            modelAndView = new ModelAndView("error");
-        }
+        Province province = provinceService.findById(id);
+        modelAndView.addObject("province", province);
+        modelAndView.addObject("buttonLabel", "Cập nhật");
         return modelAndView;
     }
 
     @PostMapping("/edit/{id}")
-    public ModelAndView updateProvince(@ModelAttribute("province") Province province) {
+    public ModelAndView updateProvince(@ModelAttribute("province") Province province) throws DuplicateException {
         provinceService.save(province);
         return showProvinceList();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public RedirectView redirectNotFound() {
+        return new RedirectView("error/not-found.html");
+    }
+
+    @ExceptionHandler(DuplicateException.class)
+    public RedirectView redirectDuplicate() {
+        return new RedirectView("error/duplicate.html");
     }
 }

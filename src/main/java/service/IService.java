@@ -2,10 +2,12 @@ package service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import service.exception.DuplicateException;
+
 import java.util.List;
 
 public interface IService<T> {
-    T save(T entity);
+    T save(T entity) throws DuplicateException;
 
     List<T> saveAll(List<T> entities);
 

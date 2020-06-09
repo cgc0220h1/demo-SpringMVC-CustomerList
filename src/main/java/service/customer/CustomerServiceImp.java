@@ -2,10 +2,12 @@ package service.customer;
 
 import model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import repository.ICustomerRepository;
+import service.exception.DuplicateException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,8 +23,12 @@ public class CustomerServiceImp implements CustomerService {
     }
 
     @Override
-    public Customer save(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer save(Customer customer) throws DuplicateException {
+        try {
+            return customerRepository.save(customer);
+        } catch (DataIntegrityViolationException ex) {
+            throw new DuplicateException();
+        }
     }
 
     @Override

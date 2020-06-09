@@ -5,12 +5,14 @@ import model.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import org.springframework.data.domain.Pageable;
 import service.customer.CustomerService;
+import service.exception.DuplicateException;
 import service.province.ProvinceService;
 
 import java.util.List;
@@ -48,22 +50,18 @@ public class CustomerController {
         return modelAndView;
     }
 
+
     @GetMapping("/customers/{id}")
-    public ModelAndView showCustomerDetail(@PathVariable Long id) {
+    public ModelAndView showCustomerDetail(@PathVariable Long id) throws Exception {
         ModelAndView modelAndView = new ModelAndView("customer/form");
-        Customer customer = null;
-        try {
-            customer = customerService.findById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Customer customer = customerService.findById(id);
         modelAndView.addObject("customer", customer);
         modelAndView.addObject("buttonLabel", "Cập nhật");
         return modelAndView;
     }
 
     @PostMapping("/customers/{id}")
-    public RedirectView updateCustomer(@ModelAttribute Customer customer) {
+    public RedirectView updateCustomer(@ModelAttribute Customer customer) throws DuplicateException {
         customerService.save(customer);
         return redirect();
     }
@@ -77,13 +75,13 @@ public class CustomerController {
     }
 
     @PostMapping("/create")
-    public RedirectView addCustomer(@ModelAttribute("customer") Customer customer) {
+    public RedirectView addCustomer(@ModelAttribute("customer") Customer customer) throws DuplicateException {
         customerService.save(customer);
         return redirect();
     }
 
     @GetMapping("/search")
-    public ModelAndView showResult(@RequestParam("search") Optional<String> search, Pageable pageable) throws Exception {
+    public ModelAndView showResult(@RequestParam("search") Optional<String> search, Pageable pageable) {
         Page<Customer> customers;
         ModelAndView modelAndView = new ModelAndView("customer/list");
         if (search.isPresent()) {
@@ -93,5 +91,15 @@ public class CustomerController {
         }
         modelAndView.addObject("customers", customers);
         return modelAndView;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView redirectNotFound() {
+        return new ModelAndView("error/not-found");
+    }
+
+    @ExceptionHandler(DuplicateException.class)
+    public ModelAndView redirectDuplicate() {
+        return new ModelAndView("error/duplicate");
     }
 }
