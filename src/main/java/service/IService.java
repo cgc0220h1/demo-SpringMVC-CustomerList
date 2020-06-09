@@ -15,7 +15,7 @@ public interface IService<T> {
 
     List<T> findAll();
 
-    Page<T> findAll(Pageable pageable);
+    Page<T> findAll(Pageable pageable) throws Exception;
 
     List<T> findAllById(List<Long> ids);
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import service.IService;
 
 import org.springframework.data.domain.Pageable;
 import service.customer.CustomerService;
@@ -42,7 +41,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public ModelAndView showCustomerList(Pageable pageable) {
+    public ModelAndView showCustomerList(Pageable pageable) throws Exception {
         Page<Customer> customers = customerService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("customer/list");
         modelAndView.addObject("customers", customers);
@@ -79,7 +78,7 @@ public class CustomerController {
     }
 
     @GetMapping("/search")
-    public ModelAndView showResult(@RequestParam("search") Optional<String> search, Pageable pageable) {
+    public ModelAndView showResult(@RequestParam("search") Optional<String> search, Pageable pageable) throws Exception {
         Page<Customer> customers;
         ModelAndView modelAndView = new ModelAndView("customer/list");
         if (search.isPresent()) {

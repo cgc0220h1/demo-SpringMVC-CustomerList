@@ -1,5 +1,6 @@
 package config;
 
+import concern.Logger;
 import formatter.ProvinceFormatter;
 import model.Customer;
 import model.Province;
@@ -9,6 +10,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
@@ -43,6 +45,7 @@ import java.util.Properties;
 @ComponentScan("controllers")
 @EnableJpaRepositories("repository")
 @EnableSpringDataWebSupport
+@EnableAspectJAutoProxy
 public class AppConfigurationThymeleaf implements ApplicationContextAware, WebMvcConfigurer {
     private ApplicationContext applicationContext;
 
@@ -135,5 +138,12 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware, WebMv
     @Bean
     public ProvinceService provinceService(IProvinceRepository provinceRepository) {
         return new ProvinceServiceImp(provinceRepository);
+    }
+
+    //Logger
+
+    @Bean
+    public Logger logger() {
+        return new Logger();
     }
 }
