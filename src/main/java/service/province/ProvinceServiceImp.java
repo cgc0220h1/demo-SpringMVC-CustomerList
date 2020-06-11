@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import repository.IProvinceRepository;
+import repository.ProvinceRepository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.Optional;
 
 @Service
 public class ProvinceServiceImp implements ProvinceService {
-    private final IProvinceRepository provinceRepository;
+    private final ProvinceRepository provinceRepository;
 
     @Autowired
-    public ProvinceServiceImp(IProvinceRepository provinceRepository) {
+    public ProvinceServiceImp(ProvinceRepository provinceRepository) {
         this.provinceRepository = provinceRepository;
     }
 
@@ -38,6 +38,11 @@ public class ProvinceServiceImp implements ProvinceService {
     public Province findById(Long id) {
         Optional<Province> provinceOptional = provinceRepository.findById(id);
         return provinceOptional.orElse(null);
+    }
+
+    @Override
+    public Province findProvinceByName(String provinceName) {
+        return null;
     }
 
     @Override

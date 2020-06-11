@@ -1,5 +1,9 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -14,7 +18,8 @@ public class Province {
     @Column
     private String name;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "province")
     private Collection<Customer> customers;
 
     public Province() {

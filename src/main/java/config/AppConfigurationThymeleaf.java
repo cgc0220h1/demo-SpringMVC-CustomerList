@@ -2,15 +2,10 @@ package config;
 
 import concern.Logger;
 import formatter.ProvinceFormatter;
-import model.Customer;
-import model.Province;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
@@ -26,9 +21,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import repository.ICustomerRepository;
-import repository.IProvinceRepository;
-import service.IService;
+import repository.CustomerRepository;
+import repository.ProvinceRepository;
 import service.customer.CustomerService;
 import service.customer.CustomerServiceImp;
 import service.province.ProvinceService;
@@ -42,7 +36,7 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("controllers")
+@ComponentScan({"controllers", "api"})
 @EnableJpaRepositories("repository")
 @EnableSpringDataWebSupport
 @EnableAspectJAutoProxy
@@ -131,12 +125,12 @@ public class AppConfigurationThymeleaf implements ApplicationContextAware, WebMv
     }
 
     @Bean
-    public CustomerService customerService(ICustomerRepository customerRepository) {
+    public CustomerService customerService(CustomerRepository customerRepository) {
         return new CustomerServiceImp(customerRepository);
     }
 
     @Bean
-    public ProvinceService provinceService(IProvinceRepository provinceRepository) {
+    public ProvinceService provinceService(ProvinceRepository provinceRepository) {
         return new ProvinceServiceImp(provinceRepository);
     }
 

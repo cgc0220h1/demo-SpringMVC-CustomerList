@@ -30,8 +30,10 @@ dependencies {
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.3.0'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.10.Final'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
-    implementation 'junit:junit:4.12'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.10.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '5.2.5.RELEASE'
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
 }

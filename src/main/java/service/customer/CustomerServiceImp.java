@@ -6,8 +6,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import repository.ICustomerRepository;
+import repository.CustomerRepository;
 import service.exception.DuplicateException;
+import service.exception.NotFoundException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.Optional;
 
 @Service
 public class CustomerServiceImp implements CustomerService {
-    private final ICustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImp(ICustomerRepository customerRepository) {
+    public CustomerServiceImp(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -51,10 +52,15 @@ public class CustomerServiceImp implements CustomerService {
     }
 
     @Override
-    public Customer findById(Long id) throws Exception {
+    public List<Customer> findAllByProvince(String city) {
+        return null;
+    }
+
+    @Override
+    public Customer findById(Long id) throws NotFoundException {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         if (!optionalCustomer.isPresent()) {
-            throw new Exception("Customer not found!");
+            throw new NotFoundException();
         }
         return optionalCustomer.get();
     }

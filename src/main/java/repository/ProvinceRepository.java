@@ -3,5 +3,7 @@ package repository;
 import model.Province;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface IProvinceRepository extends PagingAndSortingRepository<Province, Long> {
+import java.util.Optional;
+
+public interface ProvinceRepository extends PagingAndSortingRepository<Province, Long> {
 }

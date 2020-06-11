@@ -3,6 +3,7 @@ package service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import service.exception.DuplicateException;
+import service.exception.NotFoundException;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface IService<T> {
 
     List<T> saveAll(List<T> entities);
 
-    T findById(Long id) throws Exception;
+    T findById(Long id) throws NotFoundException;
 
     boolean existsById(Long id);
 
