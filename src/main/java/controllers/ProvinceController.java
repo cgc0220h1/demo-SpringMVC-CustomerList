@@ -2,6 +2,8 @@ package controllers;
 
 import model.Province;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,10 +16,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/provinces")
 public class ProvinceController {
+    private final MessageSource messageSource;
+
     private final IService<Province> provinceService;
 
     @Autowired
-    public ProvinceController(IService<Province> provinceService) {
+    public ProvinceController(MessageSource messageSource, IService<Province> provinceService) {
+        this.messageSource = messageSource;
         this.provinceService = provinceService;
     }
 
@@ -33,7 +38,8 @@ public class ProvinceController {
     public ModelAndView showCreateProvinceForm() {
         ModelAndView modelAndView = new ModelAndView("province/form");
         modelAndView.addObject("province", new Province());
-        modelAndView.addObject("buttonLabel", "Tạo mới");
+        modelAndView.addObject("buttonLabel",
+                messageSource.getMessage("province.form.button.new", null, LocaleContextHolder.getLocale()));
         return modelAndView;
     }
 
@@ -48,7 +54,8 @@ public class ProvinceController {
         ModelAndView modelAndView = new ModelAndView("province/form");
         Province province = provinceService.findById(id);
         modelAndView.addObject("province", province);
-        modelAndView.addObject("buttonLabel", "Cập nhật");
+        modelAndView.addObject("buttonLabel",
+                messageSource.getMessage("province.form.button.update", null, LocaleContextHolder.getLocale()));
         return modelAndView;
     }
 

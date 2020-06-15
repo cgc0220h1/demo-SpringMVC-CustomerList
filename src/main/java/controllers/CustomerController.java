@@ -3,6 +3,8 @@ package controllers;
 import model.Customer;
 import model.Province;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +23,15 @@ import java.util.Optional;
 @RequestMapping("/")
 @Controller
 public class CustomerController {
+    private final MessageSource messageSource;
+
     private final CustomerService customerService;
 
     private final ProvinceService provinceService;
 
     @Autowired
-    public CustomerController(CustomerService customerService,
-                              ProvinceService provinceService) {
+    public CustomerController(MessageSource messageSource, CustomerService customerService, ProvinceService provinceService) {
+        this.messageSource = messageSource;
         this.customerService = customerService;
         this.provinceService = provinceService;
     }
@@ -43,7 +47,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public ModelAndView showCustomerList(Pageable pageable) throws Exception {
+    public ModelAndView showCustomerList(Pageable pageable) {
         Page<Customer> customers = customerService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("customer/list");
         modelAndView.addObject("customers", customers);
@@ -56,7 +60,8 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("customer/form");
         Customer customer = customerService.findById(id);
         modelAndView.addObject("customer", customer);
-        modelAndView.addObject("buttonLabel", "Cập nhật");
+        modelAndView.addObject("buttonLabel",
+                messageSource.getMessage("customer.form.button.update", null, LocaleContextHolder.getLocale()));
         return modelAndView;
     }
 
@@ -70,7 +75,8 @@ public class CustomerController {
     public ModelAndView showCreateCustomerForm() {
         ModelAndView modelAndView = new ModelAndView("customer/form");
         modelAndView.addObject("customer", new Customer());
-        modelAndView.addObject("buttonLabel", "Tạo mới");
+        modelAndView.addObject("buttonLabel",
+                messageSource.getMessage("customer.form.button.new", null, LocaleContextHolder.getLocale()));
         return modelAndView;
     }
 

@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Chi tiết Tỉnh thành</title>
+    <title th:text="#{province.form.title}"></title>
 </head>
 <body>
 <form method="post" th:object="${province}">
     <fieldset>
-        <legend>Customer Information</legend>
+        <legend th:text="#{province.form.title}"></legend>
         <input type="hidden" th:field="*{id}"/>
         <table>
             <tr>
-                <td><label for="province-name">Tỉnh</label></td>
+                <td><label for="province-name" th:text="#{province.form.label.province}">Tỉnh</label></td>
                 <td>
                     <input th:field="*{name}" id="province-name"/>
                 </td>
@@ -24,6 +24,6 @@
         </table>
     </fieldset>
 </form>
-<a th:href="@{/provinces}">Quay lại trang trước</a>.
+<a th:href="@{/provinces}" th:text="#{province.form.link.back}"></a>.
 </body>
 </html>

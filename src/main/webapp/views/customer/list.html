@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách khách hàng</title>
+    <title th:text="#{customer.list.title}"></title>
     <style>
         table, tr, td {
             border: black solid 1px;
@@ -11,25 +11,27 @@
     </style>
 </head>
 <body>
-<h1>Danh sách khách hàng</h1>
+<a href="/?lang=vi">Tiếng Việt</a>
+<a href="/?lang=en">Tiếng Anh</a>
+<h1 th:text="#{customer.list.title}"></h1>
 <div style="margin-bottom: 10px">
-    <a th:href="@{/create}">Tạo mới</a>
+    <a th:href="@{/create}" th:text="#{customer.list.link.new}"></a>
 </div>
 <div style="margin-bottom: 10px">
-    <a th:href="@{/provinces}">Danh sách tỉnh</a>
+    <a th:href="@{/provinces}" th:text="#{customer.list.link.provinces}"></a>
 </div>
 <form method="GET" action="/search">
-    <label for="search">Tìm theo tên</label>
+    <label for="search" th:text="#{customer.list.form.search.label}">Tìm theo tên</label>
     <input type="text" name="search" id="search">
-    <input type="submit" value="Tìm kiếm">
+    <input type="submit" th:value="#{customer.list.form.search.button}">
 </form>
 <table>
     <thead>
     <tr>
         <td>ID</td>
-        <td>Tên</td>
+        <td th:text="#{customer.list.table.column.name}"></td>
         <td>Email</td>
-        <td>Địa chỉ</td>
+        <td th:text="#{customer.list.table.column.province}"></td>
     </tr>
     </thead>
     <tbody>
@@ -44,10 +46,12 @@
     </tbody>
 </table>
 <div>
-    <a th:href="@{/customers(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}">Trước</a>
+    <a th:href="@{/customers(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}"
+       th:text="#{customer.list.pagination.previous}"></a>
     <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
-    <a th:href="@{/customers(page=${customers.number + 1})}" th:if="${customers.hasNext()}">Sau</a>
+    <a th:href="@{/customers(page=${customers.number + 1})}" th:if="${customers.hasNext()}"
+       th:text="#{customer.list.pagination.next}"></a>
 </div>
-<p th:text="${'Có: ' + customers.content.size() + ' khách hàng'}"></p>
+<p th:text="#{customer.list.paragraph.total.customer(${customers.totalElements})}"></p>
 </body>
 </html>

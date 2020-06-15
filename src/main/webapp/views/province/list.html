@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách khách hàng</title>
+    <title th:text="#{province.list.title}"></title>
     <style>
         table, tr, td {
             border: black solid 1px;
@@ -11,15 +11,15 @@
     </style>
 </head>
 <body>
-<h1>Danh sách tỉnh</h1>
+<h1 th:text="#{province.list.title}"></h1>
 <div style="margin-bottom: 10px">
-    <a th:href="@{/provinces/create}">Tạo mới</a>
+    <a th:href="@{/provinces/create}" th:text="#{province.list.link.new}"></a>
 </div>
 <table>
     <thead>
     <tr>
         <td>ID</td>
-        <td>Tên Tỉnh</td>
+        <td th:text="#{province.list.table.column.name}"></td>
     </tr>
     </thead>
     <tbody>
@@ -31,6 +31,6 @@
     </tr>
     </tbody>
 </table>
-<p th:text="${'Có: ' + provinceList.size() + ' tỉnh thành'}"></p>
+<p th:text="#{province.list.paragraph.total.province(${provinceList.size()})}"></p>
 </body>
 </html>

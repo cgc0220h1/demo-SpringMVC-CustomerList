@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Chi tiết khách hàng</title>
+    <title th:text="#{customer.form.title}"></title>
 </head>
 <body>
 <form method="post" th:object="${customer}">
     <fieldset>
-        <legend>Customer Information</legend>
+        <legend th:text="#{customer.form.fieldset.legend}">Customer Information</legend>
         <input type="hidden" th:field="*{id}"/>
         <table>
             <tr>
-                <td><label for="customer-name">Tên</label></td>
+                <td><label for="customer-name" th:text="#{customer.form.label.name}">Tên</label></td>
                 <td>
                     <input th:field="*{name}" id="customer-name"/>
                 </td>
@@ -23,7 +23,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="customer-province">Tỉnh thành</label></td>
+                <td><label for="customer-province" th:text="#{customer.form.label.province}">Tỉnh thành</label></td>
                 <td>
                     <select th:field="*{province}" id="customer-province">
                         <th:block th:each="province : ${provinceList}">
@@ -40,6 +40,6 @@
         </table>
     </fieldset>
 </form>
-<a th:href="@{/}">Quay lại trang trước</a>.
+<a th:href="@{/}" th:text="#{customer.form.link.back}"></a>.
 </body>
 </html>
